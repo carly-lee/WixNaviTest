@@ -47,25 +47,3 @@ Navigation.startSingleScreenApp({
   },
   passProps: {}
 });
-
-// Navigation.startTabBasedApp({
-//   animationType: Platform.OS === 'ios' ? 'slide-down' : 'fade',
-//   passProps: {},
-//   tabs: [
-//     {
-//       label: 'One',
-//       screen: 'FirstTabScreen', // this is a registered name for a screen
-//       title: 'Screen One'
-//     },
-//     {
-//       label: 'Two',
-//       screen: 'SecondTabScreen',
-//       title: 'Screen Two'
-//     },
-//     {
-//       label: 'Three',
-//       screen: 'ThirdTabScreen',
-//       title: 'Screen Two'
-//     }
-//   ]
-// });
