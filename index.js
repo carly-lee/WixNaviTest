@@ -5,47 +5,67 @@
  */
 
 import React, { Component } from 'react';
-import { Platform, View } from 'react-native';
+import { Platform, View, Text } from 'react-native';
 import { Navigation, ScreenVisibilityListener } from 'react-native-navigation';
+import Reactotron from 'reactotron-react-native'
+
+import WelcomeScreen from './screens/WelcomeScreen';
+import FirstTabScreen from './screens/FirstTabScreen';
+import SecondTabScreen from './screens/SecondTabScreen';
+import ThirdTabScreen from './screens/ThirdTabScreen';
+
+Reactotron
+  .configure({ name: 'WixNaviTest', host: 'localhost' }) // controls connection & communication settings
+  .useReactNative() // add all built-in react native plugins
+  .connect() // let's connect!
+
+console.tron = Reactotron;
+Reactotron.clear();
 
 function registerScreenVisibilityListener() {
   new ScreenVisibilityListener({
-    willAppear: ({screen}) => console.log(`Displaying screen ${screen}`),
-    didAppear: ({screen, startTime, endTime, commandType}) => console.log('screenVisibility', `Screen ${screen} displayed in ${endTime - startTime} millis [${commandType}]`),
-    willDisappear: ({screen}) => console.log(`Screen will disappear ${screen}`),
-    didDisappear: ({screen}) => console.log(`Screen disappeared ${screen}`)
+    willAppear: ({screen}) => console.tron.log(`Displaying screen ${screen}`),
+    didAppear: ({screen, startTime, endTime, commandType}) => console.tron.log('screenVisibility', `Screen ${screen} displayed in ${endTime - startTime} millis [${commandType}]`),
+    willDisappear: ({screen}) => console.tron.log(`Screen will disappear ${screen}`),
+    didDisappear: ({screen}) => console.tron.log(`Screen disappeared ${screen}`)
   }).register();
 }
 
 function registerScreens() {
-  Navigation.registerComponent('example.FirstTabScreen', () => <View>First Tab Screen</View>);
-  Navigation.registerComponent('example.SecondTabScreen', () => <View>Second Tab Screen</View>);
-  Navigation.registerComponent('example.PushedScreen', () => <View>Pushed Screen</View>);
+  Navigation.registerComponent('WelcomeScreen', () => WelcomeScreen);
+  Navigation.registerComponent('FirstTabScreen', () => FirstTabScreen);
+  Navigation.registerComponent('SecondTabScreen', () => SecondTabScreen);
+  Navigation.registerComponent('ThirdTabScreen', () => ThirdTabScreen);
 }
 
+registerScreens();
+registerScreenVisibilityListener();
 
-function start(){
-  registerScreenVisibilityListener();
-  registerScreens();
-  Navigation.startTabBasedApp({
-    animationType: Platform.OS === 'ios' ? 'slide-down' : 'fade',
-    tabs: [
-      {
-        label: 'One',
-        screen: 'example.FirstTabScreen', // this is a registered name for a screen
-        title: 'Screen One'
-      },
-      {
-        label: 'Two',
-        screen: 'example.SecondTabScreen',
-        title: 'Screen Two'
-      }
-    ]
-  });
-}
+Navigation.startSingleScreenApp({
+  screen: {
+    screen: 'WelcomeScreen',
+  },
+  passProps: {}
+});
 
-module.exports = {
-  start
-};
-
-
+// Navigation.startTabBasedApp({
+//   animationType: Platform.OS === 'ios' ? 'slide-down' : 'fade',
+//   passProps: {},
+//   tabs: [
+//     {
+//       label: 'One',
+//       screen: 'FirstTabScreen', // this is a registered name for a screen
+//       title: 'Screen One'
+//     },
+//     {
+//       label: 'Two',
+//       screen: 'SecondTabScreen',
+//       title: 'Screen Two'
+//     },
+//     {
+//       label: 'Three',
+//       screen: 'ThirdTabScreen',
+//       title: 'Screen Two'
+//     }
+//   ]
+// });
