@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react';
 import { View, Text, TouchableOpacity, Platform } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 
+import styles from './styles';
+
 export default class WelcomeScreen extends PureComponent {
 
   constructor(props){
@@ -35,11 +37,19 @@ export default class WelcomeScreen extends PureComponent {
     });
   }
 
+  pushScreen = () => {
+    this.props.navigator.push({
+      screen: 'PushedScreen',
+      animationType: 'slide-left',
+    })
+  }
+
   render(){
     return(
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text style={{ fontSize: 24 }}>Welcome Screen</Text>
+      <View style={styles.container}>
+        <Text style={styles.screenTitle}>Welcome Screen</Text>
         <TouchableOpacity onPress={this.goToTab}><Text>Go to Tab Screen</Text></TouchableOpacity>
+        <TouchableOpacity onPress={this.pushScreen}><Text>Push a Screen</Text></TouchableOpacity>
       </View>
     )
   }

@@ -13,6 +13,9 @@ import WelcomeScreen from './screens/WelcomeScreen';
 import FirstTabScreen from './screens/FirstTabScreen';
 import SecondTabScreen from './screens/SecondTabScreen';
 import ThirdTabScreen from './screens/ThirdTabScreen';
+import PushedScreen from './screens/PushedScreen';
+import InAppNotification from './screens/InAppNotification';
+import Modal from './screens/Modal';
 
 Reactotron
   .configure({ name: 'WixNaviTest', host: 'localhost' }) // controls connection & communication settings
@@ -36,6 +39,9 @@ function registerScreens() {
   Navigation.registerComponent('FirstTabScreen', () => FirstTabScreen);
   Navigation.registerComponent('SecondTabScreen', () => SecondTabScreen);
   Navigation.registerComponent('ThirdTabScreen', () => ThirdTabScreen);
+  Navigation.registerComponent('PushedScreen', () => PushedScreen);
+  Navigation.registerComponent('InAppNotification', () => InAppNotification);
+  Navigation.registerComponent('Modal', () => Modal);
 }
 
 registerScreens();
